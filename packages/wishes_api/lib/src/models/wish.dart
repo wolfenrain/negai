@@ -30,7 +30,7 @@ class Wish extends Equatable {
     this.isFulfilled = false,
   })  : assert(
           id == null || id.isNotEmpty,
-          'id can not be null and should be empty',
+          'id cannot be null and should be empty',
         ),
         id = id ?? const Uuid().v4();
 
