@@ -73,8 +73,8 @@ void main() {
       });
 
       test(
-          'replaces the old value with the new value for every parameter that is provided',
-          () {
+          'replaces the old value with the new value for every parameter that '
+          'is provided', () {
         expect(
           testWish().copyWith(
             id: '2',
