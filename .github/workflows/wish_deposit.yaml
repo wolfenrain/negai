@@ -1,0 +1,16 @@
+name: WishDeposit Workflow
+
+on: pull_request
+  paths:
+    - ".github/workflows/wish_deposit.yaml"
+    - "packages/wish_deposit/lib/**"
+    - "packages/wish_deposit/test/**"
+    - "packages/wish_deposit/pubspec.yaml"
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
+    with:
+      dart_sdk: "stable"
+      working_directory: "packages/wish_deposit"
+    
