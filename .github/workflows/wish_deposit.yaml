@@ -1,11 +1,12 @@
 name: WishDeposit Workflow
 
-on: pull_request
-  paths:
-    - ".github/workflows/wish_deposit.yaml"
-    - "packages/wish_deposit/lib/**"
-    - "packages/wish_deposit/test/**"
-    - "packages/wish_deposit/pubspec.yaml"
+on: 
+  pull_request: 
+    paths:
+      - ".github/workflows/wish_deposit.yaml"
+      - "packages/wish_deposit/lib/**"
+      - "packages/wish_deposit/test/**"
+      - "packages/wish_deposit/pubspec.yaml"
 
 jobs:
   build:
