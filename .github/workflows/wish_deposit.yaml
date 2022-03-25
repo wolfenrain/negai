@@ -1,4 +1,4 @@
-name: WishDeposit Workflow
+name: wish_deposit
 
 on: 
   pull_request: 
