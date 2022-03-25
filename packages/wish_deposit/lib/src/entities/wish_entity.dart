@@ -1,10 +1,9 @@
+import 'package:deposit/deposit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:uuid/uuid.dart';
-import 'package:wishes_api/wishes_api.dart';
 
-part 'wish.g.dart';
+part 'wish_entity.g.dart';
 
 /// {@template wish}
 /// A single wish item.
@@ -15,29 +14,23 @@ part 'wish.g.dart';
 /// If an [id] is provided, it cannot be empty. If no [id] is provided, one
 /// will be generated.
 ///
-/// [Wish]s are immutable and can be copied using [copyWith], in addition to
-/// being serialized and deserialized using [toJson] and [fromJson]
+/// [WishEntity]s are immutable and can be copied using [copyWith], in addition
+/// to being serialized and deserialized using [toJSON] and [fromJSON]
 /// respectively.
 /// {@endtemplate}
 @immutable
 @JsonSerializable()
-class Wish extends Equatable {
+class WishEntity extends Equatable implements Entity {
   /// {@macro wish}
-  Wish({
-    String? id,
+  const WishEntity({
+    this.id,
     required this.title,
     this.description = '',
     this.isFulfilled = false,
-  })  : assert(
-          id == null || id.isNotEmpty,
-          'id cannot be null and should be empty',
-        ),
-        id = id ?? const Uuid().v4();
+  }) : assert(id == null || id > 0, 'id should be greater than 0');
 
   /// The unique identifier of the wish.
-  ///
-  /// Cannot be empty.
-  final String id;
+  final int? id;
 
   /// The title of the wish.
   ///
@@ -57,26 +50,26 @@ class Wish extends Equatable {
   /// Returns a copy of this wish with the given values updated.
   ///
   /// {@macro wish}
-  Wish copyWith({
-    String? id,
+  WishEntity copyWith({
     String? title,
     String? description,
     bool? isFulfilled,
   }) {
-    return Wish(
-      id: id ?? this.id,
+    return WishEntity(
+      id: id,
       title: title ?? this.title,
       description: description ?? this.description,
       isFulfilled: isFulfilled ?? this.isFulfilled,
     );
   }
 
-  /// Deserializes the given [JsonMap] into a [Wish].
-  static Wish fromJson(JsonMap json) => _$WishFromJson(json);
-
-  /// Converts this [Wish] into a [JsonMap].
-  JsonMap toJson() => _$WishToJson(this);
+  /// Deserializes the given [json] into a [WishEntity].
+  static WishEntity fromJSON(Map<String, dynamic> json) =>
+      _$WishEntityFromJson(json);
 
   @override
-  List<Object> get props => [id, title, description, isFulfilled];
+  Map<String, dynamic> toJSON() => _$WishEntityToJson(this);
+
+  @override
+  List<Object?> get props => [id, title, description, isFulfilled];
 }

@@ -1,15 +1,15 @@
 import 'package:test/test.dart';
-import 'package:wishes_api/wishes_api.dart';
+import 'package:wish_deposit/wish_deposit.dart';
 
 void main() {
-  group('Wish', () {
-    Wish testWish({
-      String id = '1',
+  group('WishEntity', () {
+    WishEntity testWish({
+      int id = 1,
       String title = 'title',
       String description = 'description',
       bool isFulfilled = true,
     }) {
-      return Wish(
+      return WishEntity(
         id: id,
         title: title,
         description: description,
@@ -22,15 +22,15 @@ void main() {
         expect(testWish(), isNotNull);
       });
 
-      test('throws AssertionError when id is an empty string', () {
+      test('throws AssertionError when id is less than or equal to zero', () {
         expect(
-          () => testWish(id: ''),
+          () => testWish(id: 0),
           throwsA(isA<AssertionError>()),
         );
-      });
-
-      test('sets id if none is provided', () {
-        expect(testWish().id, isNotEmpty);
+        expect(
+          () => testWish(id: -1),
+          throwsA(isA<AssertionError>()),
+        );
       });
     });
 
@@ -45,7 +45,7 @@ void main() {
       expect(
         testWish().props,
         equals([
-          '1', // id
+          1, // id
           'title', // title
           'description', // description
           true, // isCompleted
@@ -59,8 +59,6 @@ void main() {
         // better. Otherwise it would have been an empty `copyWith`.
         expect(
           testWish().copyWith(
-            // ignore: avoid_redundant_argument_values
-            id: null,
             // ignore: avoid_redundant_argument_values
             title: null,
             // ignore: avoid_redundant_argument_values
@@ -77,14 +75,12 @@ void main() {
           'is provided', () {
         expect(
           testWish().copyWith(
-            id: '2',
             title: 'new title',
             description: 'new description',
             isFulfilled: false,
           ),
           equals(
             testWish(
-              id: '2',
               title: 'new title',
               description: 'new description',
               isFulfilled: false,
@@ -94,11 +90,11 @@ void main() {
       });
     });
 
-    group('fromJson', () {
+    group('fromJSON', () {
       test('works correctly', () {
         expect(
-          Wish.fromJson(<String, dynamic>{
-            'id': '1',
+          WishEntity.fromJSON(<String, dynamic>{
+            'id': 1,
             'title': 'title',
             'description': 'description',
             'isFulfilled': true,
@@ -109,8 +105,8 @@ void main() {
 
       test('ignores all "extra" fields', () {
         expect(
-          Wish.fromJson(<String, dynamic>{
-            'id': '1',
+          WishEntity.fromJSON(<String, dynamic>{
+            'id': 1,
             'title': 'title',
             'description': 'description',
             'isFulfilled': true,
@@ -121,12 +117,12 @@ void main() {
       });
     });
 
-    group('toJson', () {
+    group('toJSON', () {
       test('works correctly', () {
         expect(
-          testWish().toJson(),
+          testWish().toJSON(),
           equals(<String, dynamic>{
-            'id': '1',
+            'id': 1,
             'title': 'title',
             'description': 'description',
             'isFulfilled': true,
