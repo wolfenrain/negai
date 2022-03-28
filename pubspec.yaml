@@ -14,12 +14,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
-  local_storage_wishes_api:
-    path: packages/local_storage_wishes_api
-  wishes_api:
-    path: packages/wishes_api
-  wishes_repository:
-    path: packages/wishes_repository
+  wish_deposit:
+    path: packages/wish_deposit
 
 dev_dependencies:
   bloc_test: ^9.0.3
