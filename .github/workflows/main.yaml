@@ -4,7 +4,8 @@ on: [pull_request, push]
 
 jobs:
   build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@231b87c4889fa4ac38a51b17a0eddfdc1ad43be7
     with:
       flutter_channel: stable
       flutter_version: 2.10.0
+      test_optimization: false
